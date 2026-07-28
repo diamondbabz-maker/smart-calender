@@ -1,4 +1,18 @@
 // ----------------------------
+// Photos
+// ----------------------------
+
+let photos = [
+    "photos/photo1.jpg",
+    "photos/photo2.jpg",
+    "photos/photo3.jpg",
+    "photos/photo4.jpg"
+];
+
+let currentPhoto = 0;
+
+// Show the first photo when the page loads
+document.getElementById("photo").src = photos[currentPhoto];// ----------------------------
 // Slideshow
 // ----------------------------
 
