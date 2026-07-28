@@ -1,47 +1,170 @@
-function updateClock(){
+// ----------------------------
+// SMART CALENDAR v1.0
+// ----------------------------
 
-let now = new Date();
+// Photo slideshow
+const photos = [
+    "photos/photo1.jpg",
+    "photos/photo2.jpg",
+    "photos/photo3.jpg",
+    "photos/photo4.jpg"
+];
 
-let day = now.toLocaleDateString("en-US", {
-weekday: "long"
-});
+let currentPhoto = 0;
 
-let date = now.toLocaleDateString("en-US", {
-month: "long",
-day: "numeric",
-year: "numeric"
-});
+// ----------------------------
+// Update clocks and date
+// ----------------------------
 
-let time = now.toLocaleTimeString("en-US");
+function updateClock() {
 
-document.getElementById("day").innerHTML = day;
-document.getElementById("date").innerHTML = date;
-document.getElementById("clock").innerHTML = time;
+    const now = new Date();
+
+    // Day
+    document.getElementById("day").textContent =
+        now.toLocaleDateString("en-US", {
+            weekday: "long"
+        });
+
+    // Date
+    document.getElementById("date").textContent =
+        now.toLocaleDateString("en-US", {
+            month: "long",
+            day: "numeric",
+            year: "numeric"
+        });
+
+    // Jamaica Time
+    document.getElementById("jamaica").textContent =
+        now.toLocaleTimeString("en-US", {
+            timeZone: "America/Jamaica",
+            hour: "numeric",
+            minute: "2-digit",
+            second: "2-digit",
+            hour12: true
+        });
+
+    // Second Life Time (Pacific)
+    document.getElementById("slt").textContent =
+        now.toLocaleTimeString("en-US", {
+            timeZone: "America/Los_Angeles",
+            hour: "numeric",
+            minute: "2-digit",
+            second: "2-digit",
+            hour12: true
+        });
 
 }
 
-setInterval(updateClock,1000);
+// ----------------------------
+// Monthly Calendar
+// ----------------------------
+
+function drawCalendar() {
+
+    const today = new Date();
+
+    const year = today.getFullYear();
+    const month = today.getMonth();
+
+    const firstDay =
+        new Date(year, month, 1).getDay();
+
+    const lastDate =
+        new Date(year, month + 1, 0).getDate();
+
+    document.getElementById("monthYear").textContent =
+        today.toLocaleDateString("en-US", {
+            month: "long",
+            year: "numeric"
+        });
+
+    const tbody =
+        document.querySelector("#calendarTable tbody");
+
+    tbody.innerHTML = "";
+
+    let date = 1;
+
+    for (let row = 0; row < 6; row++) {
+
+        const tr = document.createElement("tr");
+
+        for (let col = 0; col < 7; col++) {
+
+            const td = document.createElement("td");
+
+            if (row === 0 && col < firstDay) {
+
+                td.textContent = "";
+
+            }
+            else if (date > lastDate) {
+
+                td.textContent = "";
+
+            }
+            else {
+
+                td.textContent = date;
+
+                if (date === today.getDate()) {
+
+                    td.classList.add("today");
+
+                }
+
+                date++;
+
+            }
+
+            tr.appendChild(td);
+
+        }
+
+        tbody.appendChild(tr);
+
+    }
+
+}
+
+// ----------------------------
+// Slideshow
+// ----------------------------
+
+function nextPhoto() {
+
+    currentPhoto++;
+
+    if (currentPhoto >= photos.length) {
+
+        currentPhoto = 0;
+
+    }
+
+    const img =
+        document.getElementById("photo");
+
+    img.style.opacity = 0;
+
+    setTimeout(() => {
+
+        img.src = photos[currentPhoto];
+
+        img.style.opacity = 1;
+
+    }, 400);
+
+}
+
+// ----------------------------
+// Start Everything
+// ----------------------------
 
 updateClock();
 
+drawCalendar();
 
-let photos = [
-"photos/photo1.jpg",
-"photos/photo2.jpg",
-"photos/photo3.jpg",
-"photos/photo4.jpg"
-];
+setInterval(updateClock, 1000);
 
-let current = 0;
-
-setInterval(function(){
-
-current++;
-
-if(current >= photos.length){
-current = 0;
-}
-
-document.getElementById("photo").src = photos[current];
-
-},5000);
+setInterval(nextPhoto, 5000);
