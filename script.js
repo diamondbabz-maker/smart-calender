@@ -176,6 +176,7 @@ function showTodayEvents() {
         list.appendChild(li);
 
     });
+    
 
 }// ----------------------------
 // Photos
@@ -198,6 +199,8 @@ window.addEventListener("DOMContentLoaded", () => {
 
     updateClock();
     setInterval(updateClock, 1000);
+
+    loadEvents();
 
     const photo = document.getElementById("photo");
     if (photo) {
