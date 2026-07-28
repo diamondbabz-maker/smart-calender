@@ -1,51 +1,117 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Smart Calendar</title>
 
 <link rel="stylesheet" href="style.css">
+
 </head>
 
 <body>
 
 <div class="calendar">
 
-<div class="date" id="date"></div>
+    <!-- Header -->
 
-<div class="clock">
-<div>
-<h3>Second Life Time</h3>
-<span id="slt"></span>
-</div>
+    <div class="header">
 
-<div>
-<h3>Jamaica</h3>
-<span id="jamaica"></span>
-</div>
-</div>
+        <h1 id="day">Monday</h1>
 
-<div class="photo">
-<img id="photo" src="photos/photo1.jpg">
-</div>
+        <div id="date">
+            July 27, 2026
+        </div>
 
-<div class="events">
+    </div>
 
-<h3>Today's Events</h3>
+    <!-- Dual Clock -->
 
-<ul>
+    <div class="clock-container">
 
-<li>✔ Welcome Home</li>
+        <div class="clock-box">
 
-<li>✔ Family Time</li>
+            <h3>Second Life Time</h3>
 
-<li>✔ Shopping</li>
+            <div id="slt">
+                00:00:00
+            </div>
 
-<li>✔ Relax</li>
+        </div>
 
-</ul>
+        <div class="clock-box">
 
-</div>
+            <h3>Jamaica</h3>
+
+            <div id="jamaica">
+                00:00:00
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Monthly Calendar -->
+
+    <div class="month-section">
+
+        <h2 id="monthYear"></h2>
+
+        <table id="calendarTable">
+
+            <thead>
+
+                <tr>
+
+                    <th>Sun</th>
+                    <th>Mon</th>
+                    <th>Tue</th>
+                    <th>Wed</th>
+                    <th>Thu</th>
+                    <th>Fri</th>
+                    <th>Sat</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+    <!-- Slideshow -->
+
+    <div class="photo-box">
+
+        <img
+            id="photo"
+            src="photos/photo1.jpg"
+            alt="Slideshow">
+
+    </div>
+
+    <!-- Events -->
+
+    <div class="events">
+
+        <h2>Today's Events</h2>
+
+        <ul id="eventList">
+
+            <li>✔ Welcome Home</li>
+            <li>✔ Family Time</li>
+            <li>✔ Shopping</li>
+            <li>✔ Relax</li>
+
+        </ul>
+
+    </div>
 
 </div>
 
@@ -53,3 +119,4 @@
 
 </body>
 </html>
+
