@@ -147,3 +147,22 @@ body {
 .events li:last-child {
     border-bottom: none;
 }
+.photo-controls{
+    margin-top:12px;
+    text-align:center;
+}
+
+.photo-controls button{
+    padding:8px 15px;
+    margin:4px;
+    border:none;
+    border-radius:8px;
+    background:#FFD54F;
+    color:#222;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+.photo-controls button:hover{
+    background:#FFC107;
+}
