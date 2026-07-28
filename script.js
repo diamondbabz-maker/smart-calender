@@ -8,8 +8,9 @@ let photos = [
     "photos/photo3.jpg",
     "photos/photo4.jpg"
 ];
-
-let currentPhoto = 0;
+window.addEventListener("DOMContentLoaded", () => {
+    document.getElementById("photo").src = photos[currentPhoto];
+});
 
 // Show the first photo when the page loads
 document.getElementById("photo").src = photos[currentPhoto];// ----------------------------
