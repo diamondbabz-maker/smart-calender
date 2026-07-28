@@ -1,0 +1,47 @@
+body {
+    margin: 0;
+    background: transparent;
+    font-family: Arial, sans-serif;
+}
+
+.calendar {
+    width: 100%;
+    height: 100vh;
+    background: linear-gradient(#111, #222);
+    color: white;
+    text-align: center;
+    border-radius: 25px;
+    overflow: hidden;
+}
+
+.header {
+    padding: 20px;
+}
+
+#day {
+    font-size: 40px;
+    font-weight: bold;
+}
+
+#date {
+    font-size: 28px;
+}
+
+#clock {
+    font-size: 60px;
+    margin: 15px;
+    letter-spacing: 3px;
+}
+
+.photo-box {
+    width: 80%;
+    height: 45%;
+    margin: auto;
+}
+
+.photo-box img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 20px;
+}
