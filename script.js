@@ -1,169 +1,110 @@
 // ----------------------------
-// SMART CALENDAR v1.0
+// EVENTS
 // ----------------------------
 
-// Photo slideshow
-const photos = [
-    "photos/photo1.jpg",
-    "photos/photo2.jpg",
-    "photos/photo3.jpg",
-    "photos/photo4.jpg"
-];
+let events = [];
 
-let currentPhoto = 0;
+async function loadEvents() {
 
-// ----------------------------
-// Update clocks and date
-// ----------------------------
+    try {
 
-function updateClock() {
+        const response = await fetch("events.json");
+        events = await response.json();
 
-    const now = new Date();
+        showTodayEvents();
+        markCalendarEvents();
 
-    // Day
-    document.getElementById("day").textContent =
-        now.toLocaleDateString("en-US", {
-            weekday: "long"
-        });
+    } catch (error) {
 
-    // Date
-    document.getElementById("date").textContent =
-        now.toLocaleDateString("en-US", {
-            month: "long",
-            day: "numeric",
-            year: "numeric"
-        });
+        console.log("Unable to load events.");
 
-    // Jamaica Time
-    document.getElementById("jamaica").textContent =
-        now.toLocaleTimeString("en-US", {
-            timeZone: "America/Jamaica",
-            hour: "numeric",
-            minute: "2-digit",
-            second: "2-digit",
-            hour12: true
-        });
-
-    // Second Life Time (Pacific)
-    document.getElementById("slt").textContent =
-        now.toLocaleTimeString("en-US", {
-            timeZone: "America/Los_Angeles",
-            hour: "numeric",
-            minute: "2-digit",
-            second: "2-digit",
-            hour12: true
-        });
+    }
 
 }
 
-// ----------------------------
-// Monthly Calendar
-// ----------------------------
+function showTodayEvents() {
 
-function drawCalendar() {
+    const list = document.getElementById("eventList");
 
-    const today = new Date();
+    list.innerHTML = "";
 
-    const year = today.getFullYear();
-    const month = today.getMonth();
+    const today = new Date().toISOString().split("T")[0];
 
-    const firstDay =
-        new Date(year, month, 1).getDay();
+    const todayEvents = events.filter(e => e.date === today);
 
-    const lastDate =
-        new Date(year, month + 1, 0).getDate();
+    if (todayEvents.length === 0) {
 
-    document.getElementById("monthYear").textContent =
-        today.toLocaleDateString("en-US", {
-            month: "long",
-            year: "numeric"
-        });
+        list.innerHTML = "<li>No events today.</li>";
+        return;
 
-    const tbody =
-        document.querySelector("#calendarTable tbody");
+    }
 
-    tbody.innerHTML = "";
+    todayEvents.forEach(event => {
 
-    let date = 1;
+        const li = document.createElement("li");
 
-    for (let row = 0; row < 6; row++) {
+        li.textContent = event.title;
 
-        const tr = document.createElement("tr");
+        list.appendChild(li);
 
-        for (let col = 0; col < 7; col++) {
+    });
 
-            const td = document.createElement("td");
+}
 
-            if (row === 0 && col < firstDay) {
+function markCalendarEvents() {
 
-                td.textContent = "";
+    const cells = document.querySelectorAll("#calendarTable td");
 
-            }
-            else if (date > lastDate) {
+    cells.forEach(cell => {
 
-                td.textContent = "";
+        const day = parseInt(cell.textContent);
 
-            }
-            else {
+        if (!day) return;
 
-                td.textContent = date;
+        const today = new Date();
 
-                if (date === today.getDate()) {
+        const month = String(today.getMonth() + 1).padStart(2, "0");
+        const year = today.getFullYear();
 
-                    td.classList.add("today");
+        const fullDate =
+            year + "-" +
+            month + "-" +
+            String(day).padStart(2, "0");
 
-                }
+        const found =
+            events.find(e => e.date === fullDate);
 
-                date++;
+        if (found) {
 
-            }
+            cell.style.position = "relative";
 
-            tr.appendChild(td);
+            const dot =
+                document.createElement("div");
+
+            dot.style.width = "8px";
+            dot.style.height = "8px";
+            dot.style.background = "#FFD700";
+            dot.style.borderRadius = "50%";
+            dot.style.position = "absolute";
+            dot.style.bottom = "3px";
+            dot.style.left = "50%";
+            dot.style.transform = "translateX(-50%)";
+
+            cell.appendChild(dot);
 
         }
 
-        tbody.appendChild(tr);
-
-    }
+    });
 
 }
 
-// ----------------------------
-// Slideshow
-// ----------------------------
-
-function nextPhoto() {
-
-    currentPhoto++;
-
-    if (currentPhoto >= photos.length) {
-
-        currentPhoto = 0;
-
-    }
-
-    const img =
-        document.getElementById("photo");
-
-    img.style.opacity = 0;
-
-    setTimeout(() => {
-
-        img.src = photos[currentPhoto];
-
-        img.style.opacity = 1;
-
-    }, 400);
-
-}
-
-// ----------------------------
-// Start Everything
-// ----------------------------
+// Load events after the calendar is drawn
 
 updateClock();
 
 drawCalendar();
+
+loadEvents();
 
 setInterval(updateClock, 1000);
 
