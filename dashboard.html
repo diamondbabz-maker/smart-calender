@@ -89,10 +89,15 @@
 
     <div class="photo-box">
 
-        <img
-            id="photo"
-            src="photos/photo1.jpg"
-            alt="Slideshow">
+    <img id="photo" src="photos/photo1.jpg" alt="Slideshow">
+
+    <div class="photo-controls">
+
+        <button onclick="previousPhoto()">◀ Previous</button>
+
+        <button onclick="toggleSlideshow()" id="playPause">Pause</button>
+
+        <button onclick="nextPhoto()">Next ▶</button>
 
     </div>
 
