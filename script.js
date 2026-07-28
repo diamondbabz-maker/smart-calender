@@ -11,9 +11,12 @@ let photos = [
 
 let currentPhoto = 0;
 
-// Wait until the page has loaded before showing the first photo
 window.addEventListener("DOMContentLoaded", () => {
-    document.getElementById("photo").src = photos[currentPhoto];
+    const photo = document.getElementById("photo");
+
+    if (photo) {
+        photo.src = photos[currentPhoto];
+    }
 });
 
 // ----------------------------
@@ -31,7 +34,10 @@ function nextPhoto() {
         currentPhoto = 0;
     }
 
-    document.getElementById("photo").src = photos[currentPhoto];
+    const photo = document.getElementById("photo");
+    if (photo) {
+        photo.src = photos[currentPhoto];
+    }
 }
 
 function previousPhoto() {
@@ -41,7 +47,10 @@ function previousPhoto() {
         currentPhoto = photos.length - 1;
     }
 
-    document.getElementById("photo").src = photos[currentPhoto];
+    const photo = document.getElementById("photo");
+    if (photo) {
+        photo.src = photos[currentPhoto];
+    }
 }
 
 function toggleSlideshow() {
@@ -57,6 +66,4 @@ function toggleSlideshow() {
 }
 
 // Slideshow starts automatically.
-// No second timer needed here.
-   
    
